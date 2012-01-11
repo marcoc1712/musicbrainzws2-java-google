@@ -9,7 +9,35 @@ import java.util.TimeZone;
  */
 public class CalendarUtils {
 
+   
+    public static String calcIndexTime(long durTot){
+        
+        if (durTot > Integer.MAX_VALUE) return "";
+        
+        int d= (int)durTot;
+        return calcIndexTime(d);
+    }
+    public static String calcIndexTime(int durTot){
+    
+        Integer Secs = durTot/1000;
+        Integer msec = durTot - Secs*1000;
+        Integer csec = msec/10;
 
+        Integer mm = Secs/60;
+        Integer ss = Secs - mm*60;
+        Integer cc = csec;
+
+        String MM = mm.toString();
+        if (MM.length()==1) MM = "0".concat(MM);
+        String SS = ss.toString();
+        if (SS.length()==1) SS = "0".concat(SS);
+        String CC = cc.toString();
+        if (CC.length()==1) CC = "0".concat(CC);
+
+        String Time = MM.concat(":").concat(SS).concat(":").concat(CC);
+
+        return Time;
+    }
     public static String calcDurationString(Long durms){
         
         if (durms ==null) return "";
@@ -98,4 +126,6 @@ public class CalendarUtils {
     public static int calcDurationInSector(String durSt) throws MC2Exception{
          return calcDurationInSector(calcDurationInMillis(durSt));
     }
+
+    
 }
