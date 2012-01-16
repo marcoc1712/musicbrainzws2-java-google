@@ -9,7 +9,6 @@ import java.util.TimeZone;
  */
 public class CalendarUtils {
 
-   
     public static String calcIndexTime(long durTot){
         
         if (durTot > Integer.MAX_VALUE) return "";
@@ -37,6 +36,58 @@ public class CalendarUtils {
         String Time = MM.concat(":").concat(SS).concat(":").concat(CC);
 
         return Time;
+    }
+    public static long calcIndexTimeInMillis(String durStr) throws MC2Exception {
+        
+        if (durStr == null) return 0;
+        try {
+                Calendar cal = Calendar.getInstance();
+                TimeZone tx = TimeZone.getDefault();
+                int offset = tx.getOffset(cal.getTimeInMillis());
+                cal.setTimeInMillis(0);
+                
+                int msec=0;
+                int sec=0;
+                int min=0;
+                
+                long time;
+                
+ 
+                String[] split = durStr.split(":");
+                if (split.length == 1){
+                      msec = Integer.parseInt(split[0])*10;
+                      cal.set(Calendar.MILLISECOND,msec );
+                }
+                else if (split.length == 2) {
+                      sec = Integer.parseInt(split[0]);
+                      msec = Integer.parseInt(split[1])*10;
+                      cal.set(Calendar.SECOND,sec);
+                      cal.set(Calendar.MILLISECOND, msec);
+                } else if (split.length == 3) {
+                      min = Integer.parseInt(split[0]);
+                      sec = Integer.parseInt(split[1]);
+                      msec = Integer.parseInt(split[2])*10;
+                      cal.set(Calendar.MINUTE, min);
+                      cal.set(Calendar.SECOND, sec);
+                      cal.set(Calendar.MILLISECOND, msec);
+                }
+                else{
+                    throw new MC2Exception("invalid time format, should be MM:SS:CC");
+                }
+                /*
+             * Used calendar just as a entry validation. Strange stuffs with 
+             * dayligth saving offset...
+             */
+                long timecal = cal.getTimeInMillis();
+                long timeOffset = timecal+offset;
+                
+                time = (msec+sec*1000 +min*60*1000);
+                
+                return time;
+                
+        } catch (NumberFormatException ex){
+            throw new MC2Exception(ex);
+        }
     }
     public static String calcDurationString(Long durms){
         
@@ -126,6 +177,4 @@ public class CalendarUtils {
     public static int calcDurationInSector(String durSt) throws MC2Exception{
          return calcDurationInSector(calcDurationInMillis(durSt));
     }
-
-    
 }
