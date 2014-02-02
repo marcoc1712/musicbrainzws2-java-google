@@ -133,8 +133,7 @@ public class CalendarUtils {
                 int hour=0;
                 
                 long time;
-                
- 
+
                 String[] split = durStr.split(":");
                 if (split.length == 1){
                       sec = Integer.parseInt(split[0]);
