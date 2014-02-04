@@ -1,4 +1,4 @@
-package org.mc2;
+package org.mc2.util.exceptions;
 
 /**
  * All application specific exceptions extend this class.
