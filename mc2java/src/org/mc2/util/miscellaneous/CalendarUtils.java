@@ -1,5 +1,6 @@
-package org.mc2;
+package org.mc2.util.miscellaneous;
 
+import org.mc2.util.exceptions.MC2Exception;
 import java.util.Calendar;
 import java.util.TimeZone;
 

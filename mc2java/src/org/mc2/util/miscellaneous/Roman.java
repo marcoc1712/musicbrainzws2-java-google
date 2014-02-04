@@ -1,5 +1,5 @@
 //$Id: Roman.java,v 1.11 2001/01/07 15:12:00 benc Exp $
-package org.mc2;
+package org.mc2.util.miscellaneous;
 
 import java.text.*;
 
