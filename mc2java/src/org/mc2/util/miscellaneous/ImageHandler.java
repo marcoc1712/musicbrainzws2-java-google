@@ -1,59 +1,56 @@
 package org.mc2.util.miscellaneous;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.*;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  * 
  */
 public class ImageHandler {
 
+    public final static BufferedImage NULLIMAGE = null;
+    public final static BufferedImage BLANKIMAGE =  new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
+    
     public ImageHandler(){
 
    }
-   public static Boolean isFileAnImage(String pathname)
+   public static Boolean isFileAnImage(String pathname) throws IOException
    {
         java.io.File file = new java.io.File(pathname);
         return isFileAnImage(file);
  
     }
-    public static Boolean isFileAnImage(File file)
+    public static Boolean isFileAnImage(File file) throws IOException
     {
         BufferedImage img = null;
-        try {
-                  img = ImageIO.read(file);
+        img = ImageIO.read(file);
 
-                  if (img!=null)
-                  {
-                      return true;
-                  }
-        }
-        catch (IOException e)
-                { System.err.println(e.toString()); }
-
+        if (img!=null) return true;
         return false;
  
     } 
-    public  static BufferedImage getImagefromFile (java.io.File file){
+    public  static BufferedImage getImagefromFile (java.io.File file) throws IOException{
 
-         if (file== null){return null;}
-         if (!file.exists()) {return null;}
+         if (file== null){return NULLIMAGE;}
+         if (!file.exists()) {return NULLIMAGE;}
+         if (!file.canRead()) {return NULLIMAGE;}
 
-         try {BufferedImage img = ImageIO.read(file);
-               return img;
-              }
-        catch (IOException e){
-            System.err.println(e.toString());
-            return null;}
+         BufferedImage img = ImageIO.read(file);
+         return img;
+
 
      }
-     public  static BufferedImage getImagefromFile (String pathname){
+     public  static BufferedImage getImagefromFile (String pathname) throws IOException{
     
-        if (pathname == null) {return null;}
+        if (pathname == null) {return NULLIMAGE;}
 
         File file  = new File(pathname);
 
@@ -69,11 +66,11 @@ public class ImageHandler {
             return img;
 
     }
-    public static BufferedImage resize(BufferedImage img,
+     public static BufferedImage resize(BufferedImage img,
                                 int width,
                                 int height){
         
-        if (img==null){return null;}
+        if (img==null){return NULLIMAGE;}
         
         if (img.getHeight() != width ||
                img.getWidth() !=  height)
@@ -84,11 +81,11 @@ public class ImageHandler {
         return img;
         
     }
-     public static BufferedImage resizeProps(BufferedImage img,
+     public static BufferedImage resizeMantainProps(BufferedImage img,
                                 int width,
                                 int height){
         
-        if (img==null){return null;}
+        if (img==null){return NULLIMAGE;}
         
         if (img.getHeight() != width ||
                img.getWidth() !=  height)
