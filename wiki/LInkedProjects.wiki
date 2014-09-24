@@ -1,7 +1,9 @@
-#summary A list of projects used or simply interesting for future developments:
+#summary A list of third party library, projects or even just ideas used in musicbrainzWs-Java.
 
 http://code.google.com/p/cuelib/
 
 http://benow.ca/projects/libdiscid-java/
 
 http://blog.noblemaster.com/2010/08/31/star-rating-panel-for-java-swing/
+
+https://github.com/lastfm/coverartarchive-api
