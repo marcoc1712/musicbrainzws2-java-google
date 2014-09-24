@@ -1,3 +1,4 @@
-#summary A list of projects used by or simply interestinf for future development
+#summary A list of projects used or simply interesting for future developments:
 
 http://code.google.com/p/cuelib/
+http://benow.ca/projects/libdiscid-java/
